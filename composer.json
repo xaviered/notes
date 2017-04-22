@@ -1,11 +1,12 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "name": "ixavier/notes",
+    "description": "Sample API for managing Notes.",
     "keywords": ["framework", "laravel"],
+    "version": "0.1",
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
+        "php": ">=7.1",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0"
     },
