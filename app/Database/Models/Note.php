@@ -1,5 +1,7 @@
 <?php
-namespace App\Models;
+namespace App\Database\Models;
+
+use App\Database\Core\Model;
 
 /**
  * Class Note is a model representation of a note record
