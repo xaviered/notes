@@ -12,13 +12,6 @@ use Illuminate\Database\Eloquent\Model as Moloquent;
 abstract class Model extends Moloquent
 {
 	/**
-	 * The storage format of the model's date columns.
-	 *
-	 * @var string
-	 */
-	protected $dateFormat = 'U';
-
-	/**
 	 * @return ModelCollection
 	 */
 	public function getCollectionRelations() {

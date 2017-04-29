@@ -18,6 +18,28 @@ class Tag extends Model
 	protected $table = 'tags';
 
 	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		'name',
+		'slug',
+	];
+
+	/**
+	 * Given a $name will return its slug equivalent
+	 *
+	 * Tags have a special slug
+	 *
+	 * @param string $name
+	 * @return string
+	 */
+	public static function makeSlug( $name ) {
+		return strtolower( preg_replace( '/\s+/', '_', $name ) );
+	}
+
+	/**
 	 * Notes tagged by this Tag
 	 */
 	public function notes() {
