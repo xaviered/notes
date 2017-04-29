@@ -74,7 +74,7 @@ class ApiJsonResponse extends JsonResponse
 //			$request->server->set( 'QUERY_STRING', Request::normalizeQueryString( http_build_query( $request->query->all() ) ) );
 		}
 
-		$modelsArray[ 'count' ] = $paginator->count();
+		$modelsArray['meta'][ 'count' ] = $paginator->count();
 		if ( !$ignorePaging && $paginator->hasPages() ) {
 			$page = $paginator->currentPage();
 			$paginator->setRootModel( $col->getRootModel() );
@@ -84,9 +84,9 @@ class ApiJsonResponse extends JsonResponse
 				$paginator->appends( $parameters );
 			}
 
-			$modelsArray[ 'total_count' ] = $paginator->total();
-			$modelsArray[ 'page' ] = $page;
-			$modelsArray[ 'total_pages' ] = $paginator->lastPage();
+			$modelsArray['meta'][ 'total_count' ] = $paginator->total();
+			$modelsArray['meta'][ 'page' ] = $page;
+			$modelsArray['meta'][ 'total_pages' ] = $paginator->lastPage();
 
 			if ( !$hideLinks && $paginator->previousPageUrl() ) {
 				if ( $page - 1 > 1 ) {

@@ -1,6 +1,8 @@
 <?php
 
+use App\Database\Models\Note;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,6 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// All CRUD methods for Note model
+Route::resource( Note::ROUTE_NAME, 'NoteController' );
