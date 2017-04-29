@@ -1,5 +1,11 @@
 <?php
 
+use App\User;
+use App\Database\Models\Note;
+use App\Database\Models\Tag;
+use Faker\Generator as Faker_Generator;
+use Illuminate\Database\Eloquent\Factory as Eloquent_Factory;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -11,14 +17,33 @@
 |
 */
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
-    static $password;
+// users
+/** @var Eloquent_Factory $factory */
+$factory->define( User::class, function( Faker_Generator $faker ) {
+	static $password;
 
-    return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
-    ];
-});
+	return [
+		'name' => $faker->name,
+		'email' => $faker->unique()->safeEmail,
+		'password' => $password ?: $password = bcrypt( 'secret' ),
+		'remember_token' => str_random( 10 ),
+	];
+} );
+
+// sample note
+/** @var Eloquent_Factory $factory */
+$factory->define( Note::class, function( Faker_Generator $faker ) {
+	return [
+		'title' => 'Note ' . $faker->words(3, 1),
+		'message' => $faker->text( 50 ),
+		'user_id' => auth()->user()->id ?? 1
+	];
+} );
+
+// sample tag
+/** @var Eloquent_Factory $factory */
+$factory->define( Tag::class, function( Faker_Generator $faker ) {
+	return [
+		'name' => $faker->name
+	];
+} );
