@@ -22,7 +22,7 @@ Route::middleware( 'auth:api' )->get( '/user', function( Request $request ) {
 ;
 
 // All CRUD methods for Note model
-Route::resource( Note::ROUTE_NAME, 'NoteController' );
+Route::middleware( 'customAuth' )->resource( Note::ROUTE_NAME, 'NoteController' );
 
 // Specific endpoint to get user's notes
-Route::get( User::ROUTE_NAME . '/{user}/notes', 'UserController@notes' );
+Route::middleware( 'customAuth' )->get( User::ROUTE_NAME . '/{user}/notes', 'UserController@notes' );
