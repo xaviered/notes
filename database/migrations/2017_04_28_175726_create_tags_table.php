@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateTagsTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -12,16 +12,12 @@ class CreateUsersTable extends Migration
 	 * @return void
 	 */
 	public function up() {
-		Schema::create( 'users', function( Blueprint $table ) {
+		Schema::create( 'tags', function( Blueprint $table ) {
 			$table->increments( 'id' );
-			$table->string( 'name' );
-			$table->string( 'email' )->unique();
-			$table->string( 'password' );
-			$table->rememberToken();
 			$table->timestamps();
+			$table->string( 'name' );
+			$table->string( 'slug' )->unique();
 		} );
-
-		factory( \App\Database\Models\User::class )->create( [ 'id' => 1 ] );
 	}
 
 	/**
@@ -30,6 +26,6 @@ class CreateUsersTable extends Migration
 	 * @return void
 	 */
 	public function down() {
-		Schema::dropIfExists( 'users' );
+		Schema::dropIfExists( 'tags' );
 	}
 }
