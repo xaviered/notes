@@ -28,11 +28,15 @@ class NoteController extends ModelController
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  Note $app
+	 * @param  Note $note
 	 * @return JsonResponse
 	 */
-	public function show( Note $app ) {
-		return $this->showModel( $app );
+	public function show( Note $note ) {
+		return $this->showModel( $note );
+	}
+
+	public function showUserNotes(User $user) {
+
 	}
 
 	/**
@@ -56,20 +60,28 @@ class NoteController extends ModelController
 	 * Update the specified resource in storage.
 	 *
 	 * @param  Request $request
-	 * @param  Note $app
+	 * @param  Note $note
 	 * @return JsonResponse
 	 */
-	public function update( Request $request, Note $app ) {
-		return parent::updateModel( $request, $app );
+	public function update( Request $request, Note $note ) {
+		$tags = $request->get( 'tags' );
+		if ( !is_array( $tags ) ) {
+			$tags = [ $tags ];
+		}
+		if ( $tags ) {
+			$note->retag( $tags );
+		}
+
+		return parent::updateModel( $request, $note );
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  Note $app
+	 * @param  Note $note
 	 * @return JsonResponse
 	 */
-	public function destroy( Note $app ) {
-		return $this->destroyModel( $app );
+	public function destroy( Note $note ) {
+		return $this->destroyModel( $note );
 	}
 }
