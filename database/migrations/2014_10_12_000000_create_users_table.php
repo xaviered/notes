@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
 			$table->timestamps();
 		} );
 
-		factory( \App\User::class )->create( [ 'id' => 1 ] );
+		factory( \App\Database\Models\User::class )->create( [ 'id' => 1 ] );
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 
-use App\User;
+use App\Database\Models\User;
 use App\Database\Models\Note;
 use App\Database\Models\Tag;
 use Faker\Generator as Faker_Generator;
