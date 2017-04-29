@@ -4,6 +4,7 @@ namespace App\Database\Core;
 use App\Database\Collections\ModelCollection;
 use Illuminate\Database\Eloquent\Model as Moloquent;
 
+// @todo: Validate, sanitize and clean user input before sending to database
 /**
  * Class Model is the base for all Models under this app
  *
@@ -12,11 +13,11 @@ use Illuminate\Database\Eloquent\Model as Moloquent;
 abstract class Model extends Moloquent
 {
 	/**
+	 * @param bool $force Reload relations
+	 *
 	 * @return ModelCollection
 	 */
-	public function getCollectionRelations() {
-		return $this->newCollection( $this->getRelations() );
-	}
+	abstract public function getCollectionRelations( $force = false ): ModelCollection;
 
 	/**
 	 * Create a new Eloquent Collection instance.
@@ -45,6 +46,9 @@ abstract class Model extends Moloquent
 
 		switch ( $action ) {
 			case 'show':
+				if ( empty( $parameters[ 'id' ] ) ) {
+					$parameters[ 'id' ] = $this;
+				}
 				unset( $parameters[ 'page' ] );
 				unset( $parameters[ 'page_size' ] );
 				break;

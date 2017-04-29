@@ -1,14 +1,18 @@
 <?php
 
-namespace App;
+namespace App\Database\Models;
 
-use App\Database\Models\Note;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
 	use Notifiable;
+
+	/**
+	 * Routing relationship for this model
+	 */
+	const ROUTE_NAME = 'users';
 
 	/**
 	 * The attributes that are mass assignable.

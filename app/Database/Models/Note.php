@@ -1,8 +1,8 @@
 <?php
 namespace App\Database\Models;
 
+use App\Database\Collections\ModelCollection;
 use App\Database\Core\Model;
-use App\User;
 
 /**
  * Class Note is a model representation of a note record
@@ -32,6 +32,22 @@ class Note extends Model
 		'title',
 		'message'
 	];
+
+	/**
+	 * @param bool $force Reload relations
+	 *
+	 * @return ModelCollection
+	 */
+	public function getCollectionRelations( $force = false ): ModelCollection {
+		if ( !$force || count( $this->relations ) ) {
+			$this->setRelations( [
+				'user' => User::find( $this->user_id ),
+				'tags' => $this->tags()->get()->pluck( 'name' )
+			] );
+		}
+
+		return $this->newCollection( $this->getRelations() );
+	}
 
 	/**
 	 * Get the user that created this note
@@ -64,7 +80,7 @@ class Note extends Model
 			}
 		}
 
-		$this->tags()->saveMany($noteTags);
+		$this->tags()->saveMany( $noteTags );
 
 		return $this;
 	}
