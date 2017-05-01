@@ -35,10 +35,6 @@ class NoteController extends ModelController
 		return $this->showModel( $note );
 	}
 
-	public function showUserNotes(User $user) {
-
-	}
-
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -48,12 +44,21 @@ class NoteController extends ModelController
 	public function store( Request $request ) {
 
 		$updates = $request->all();
+		$tags = $updates[ 'tags' ];
 		unset( $updates[ '_id' ] );
+		unset( $updates[ 'tags' ] );
 
-		$model = Note::create( $updates );
-		$model->saveOrFail();
+		$note = Note::create( $updates );
+		$note->saveOrFail();
 
-		return new ApiJsonResponse( $model );
+		if ( !is_array( $tags ) && !empty( $tags ) ) {
+			$tags = [ $tags ];
+		}
+		if ( empty( $tags ) ) {
+			$note->retag( $tags );
+		}
+
+		return new ApiJsonResponse( $note );
 	}
 
 	/**
@@ -65,10 +70,10 @@ class NoteController extends ModelController
 	 */
 	public function update( Request $request, Note $note ) {
 		$tags = $request->get( 'tags' );
-		if ( !is_array( $tags ) ) {
+		if ( !is_array( $tags ) && !empty( $tags ) ) {
 			$tags = [ $tags ];
 		}
-		if ( $tags ) {
+		if ( empty( $tags ) ) {
 			$note->retag( $tags );
 		}
 

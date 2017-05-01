@@ -14,10 +14,10 @@ class SampleNotes extends Migration
 	 */
 	public function up() {
 		/** @var Collection $tags */
-		$tags = factory( Tag::class, 20 )->make();
 		factory( Note::class, 10 )->create()
-			->each( function( Note $note ) use ( $tags ) {
-				$note->tag( $tags->random( rand( 1, 10 ) )->pluck( 'name' )->all() );
+			->each( function( Note $note ) {
+				$tags = factory( Tag::class, rand( 1, 7 ) )->make()->pluck( 'name' )->all();
+				$note->tag( $tags );
 			} )
 		;
 	}

@@ -30,7 +30,8 @@ class Note extends Model
 	 */
 	protected $fillable = [
 		'title',
-		'message'
+		'message',
+		'user_id',
 	];
 
 	/**
