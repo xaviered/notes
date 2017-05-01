@@ -35,9 +35,9 @@ $factory->define( User::class, function( Faker_Generator $faker ) {
 /** @var Eloquent_Factory $factory */
 $factory->define( Note::class, function( Faker_Generator $faker ) {
 	return [
-		'title' => 'Note ' . $faker->words(3, 1),
+		'title' => 'Note ' . $faker->words( 3, 1 ),
 		'message' => $faker->text( 50 ),
-		'user_id' => auth()->user()->id ?? 1
+		'user_id' => auth()->user()->id ?? 1,
 	];
 } );
 
